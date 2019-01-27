@@ -12,8 +12,10 @@ namespace Completed
 		
 		private BoxCollider2D boxCollider; 		//The BoxCollider2D component attached to this object.
 		private Rigidbody2D rb2D;				//The Rigidbody2D component attached to this object.
-		private float inverseMoveTime;			//Used to make movement more efficient.
-		
+		private float inverseMoveTime;          //Used to make movement more efficient.
+        public bool isMoving = false;
+
+        [HideInInspector] static bool blocking = false; //Static variable to indicate a moving object is moving so no one else can
 		
 		//Protected, virtual functions can be overridden by inheriting classes.
 		protected virtual void Start ()
@@ -61,6 +63,8 @@ namespace Completed
 			//If something was hit, return false, Move was unsuccesful.
 			return false;
 		}
+
+        
 		
 		
 		//Co-routine for moving units from one space to next, takes a parameter end to specify where to move to.
@@ -69,6 +73,7 @@ namespace Completed
 			//Calculate the remaining distance to move based on the square magnitude of the difference between current position and end parameter. 
 			//Square magnitude is used instead of magnitude because it's computationally cheaper.
 			float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
+            isMoving = true;
 			
 			//While that distance is greater than a very small amount (Epsilon, almost zero):
 			while(sqrRemainingDistance > float.Epsilon)
@@ -85,6 +90,7 @@ namespace Completed
 				//Return and loop until sqrRemainingDistance is close enough to zero to end the function
 				yield return null;
 			}
+            isMoving = false;
 		}
 		
 		

@@ -22,13 +22,17 @@ namespace Completed
 		private int level = 1;									//Current level number, expressed in game as "Day 1".
 		private List<Enemy> enemies;							//List of all Enemy units, used to issue them move commands.
 		private bool enemiesMoving;								//Boolean to check if enemies are moving.
-		private bool doingSetup = true;							//Boolean to check if we're setting up board, prevent Player from moving during setup.
-		
-		
+		private bool doingSetup = true;                         //Boolean to check if we're setting up board, prevent Player from moving during setup.
+
+        private Player player;
+
 		
 		//Awake is always called before any Start functions
 		void Awake()
 		{
+            GameObject canvasObj = GameObject.Find("Canvas");
+            DontDestroyOnLoad(gameObject); //Don't destroy canvas so we don't unload the interpreter
+
             //Check if instance already exists
             if (instance == null)
 
@@ -111,6 +115,7 @@ namespace Completed
 			doingSetup = false;
 		}
 		
+        /*
 		//Update is called every frame.
 		void Update()
 		{
@@ -122,7 +127,7 @@ namespace Completed
 			
 			//Start moving enemies.
 			StartCoroutine (MoveEnemies ());
-		}
+		}*/
 		
 		//Call this to add the passed in Enemy to the List of Enemy objects.
 		public void AddEnemyToList(Enemy script)

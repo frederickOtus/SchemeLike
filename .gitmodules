@@ -1,0 +1,3 @@
+[submodule "Assets/_Complete-Game/Scripts/Interpreter"]
+	path = Assets/_Complete-Game/Scripts/Interpreter
+	url = https://github.com/frederickOtus/SchemeDerpeter.git
